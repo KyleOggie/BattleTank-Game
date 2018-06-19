@@ -3,6 +3,8 @@
 #include "TankPlayerController.h"
 
 
+
+
 // Called when the game starts or when spawned
 void ATankPlayerController::BeginPlay()
 {
@@ -19,6 +21,41 @@ void ATankPlayerController::BeginPlay()
 	}
 	
 }
+
+// Called every frame
+void ATankPlayerController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+	AimTowardsCrosshair();
+
+}
+
+
+void ATankPlayerController::AimTowardsCrosshair()
+{
+	if (!GetControlledTank()) { return; }
+
+	FVector HitLocation; // Out perameter
+	if (GetSightRayHitLocation(HitLocation))
+	{ 
+	
+	UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString());
+
+	// TODO Tell the controlled tank to aim at this point
+
+	}
+}
+
+
+// Get world location of line trace through line crosshair
+// True if hits landscape
+bool ATankPlayerController::GetSightRayHitLocation(FVector & OutHitLocation) const
+{
+	OutHitLocation = FVector(1.0f);
+	return true;
+}
+
 
 
 ATank* ATankPlayerController::GetControlledTank() const
