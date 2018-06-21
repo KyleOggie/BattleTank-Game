@@ -9,6 +9,7 @@
 
 // Forward Declaration
 class UTankBarrel; 
+class UTankTurret;
 
 // Hold parameters for barrel's properties
 
@@ -25,7 +26,7 @@ public:
 
 	void SetBarrelReference(UTankBarrel* BarrelToSet);
 
-	//TODO Add SetTurretReference
+	void SetTurretReference(UTankTurret* TurretToSet);
 
 protected:
 
@@ -33,8 +34,8 @@ protected:
 		
 private:
 	UTankBarrel * Barrel = nullptr;
-	
 	void MoveBarrelTowards(FVector AimDirection);
 
-	
+	UTankTurret * Turret = nullptr;
+	void MoveTurretTowards(FVector AimDirection);
 };
