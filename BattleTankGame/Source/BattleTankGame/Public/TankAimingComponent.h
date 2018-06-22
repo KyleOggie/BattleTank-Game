@@ -35,7 +35,7 @@ public:
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Crosshair state")
-	EFiriningState FiringState = EFiriningState::Reloading;
+	EFiriningState FiringState = EFiriningState::Locked;
 
 		
 private:

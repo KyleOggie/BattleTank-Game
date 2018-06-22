@@ -8,10 +8,10 @@
 
 // Forward Declarations
 class ATank;
-
+class UTankAimingComponent;
 
 /**
- * 
+ *  Responsible for allowing the playerd to aim.
  */
 UCLASS()
 class BATTLETANKGAME_API ATankPlayerController : public APlayerController
@@ -49,4 +49,8 @@ private:
 protected:
 	UFUNCTION(BluePrintCallable, Category = "Setup")
 	ATank * GetControlledTank() const;
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimingComponent* AimCompRef) ;
+
 };
