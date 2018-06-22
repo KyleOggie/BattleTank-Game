@@ -1,10 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "public/Tank.h"
+#include "Public/Tank.h"
 #include "Public/TankBarrel.h"
 #include "Public/Projectile.h"
-#include "public/TankAimingComponent.h"
+#include "Public/TankAimingComponent.h"
+#include "Public/TankMovementComponent.h"
 
 
 // Sets default values
