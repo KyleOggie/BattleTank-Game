@@ -19,9 +19,6 @@ class BATTLETANKGAME_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 private:
-
-	ATank * GetControlledTank() const;
-	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -44,8 +41,12 @@ private:
 	float CrossHairXLocation = 0.5f;
 
 	UPROPERTY(EditDefaultsOnly)
-	float CrossHairYLocation = 0.33333f;
+	float CrossHairYLocation = 0.5f;
 
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000.0f;
+
+protected:
+	UFUNCTION(BluePrintCallable, Category = "Setup")
+	ATank * GetControlledTank() const;
 };
