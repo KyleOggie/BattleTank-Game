@@ -23,17 +23,16 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 	IntendMoveForward(ForwardThrow);
 
 	// Code to allow the AI tank to move left and right
-	auto RightThrow = FVector::CrossProduct(AIForwardIntention, TankForward).Z;
+	auto RightThrow = FVector::CrossProduct(TankForward, AIForwardIntention).Z;
 	IntendTurnRight(RightThrow);
 
 
-	//UE_LOG(LogTemp, Warning, TEXT("Tank: %s MoreVelocity: %s"), *Tank, *MoveVelocityString);
+	//UE_LOG(LogTemp, Warning, TEXT("Righ: %f Forward: %s"), RightThrow, ForwardThrow);
 }
 
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-	// TODO prevent double-speed, due to multiple inputs
 	if (!LeftTrack || !RightTrack) { return; }
 
 	LeftTrack->SetThrottle(Throw);
@@ -44,7 +43,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
-	// TODO prevent double-speed, due to multiple inputs
+
 	if (!LeftTrack || !RightTrack) { return; }
 
 	LeftTrack->SetThrottle(Throw);
