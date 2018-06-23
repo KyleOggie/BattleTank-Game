@@ -7,10 +7,6 @@
 #include "TankAIController.generated.h"
 
 
-//Forward Declarations
-class ATank;
-
-
 /**
  * 
  */
@@ -19,12 +15,11 @@ class BATTLETANKGAME_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 	
-	
-private:
-
+protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+private:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
