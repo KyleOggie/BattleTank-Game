@@ -20,19 +20,9 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::BeginPlay()
 {
-	//Super::BeginPlay();
+	Super::BeginPlay();
 	// This code is here so we have to wait for the barrel to reload before we can fire first bullet
 	LastFireTime = FPlatformTime::Seconds();
-}
-
-
-void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
-{
-	if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
-	{
-		FiringState = EFiriningState::Reloading;
-	}
-	// TODO handle aiming and locked states
 }
 
 
@@ -43,6 +33,31 @@ void UTankAimingComponent::Initialise(UTankBarrel * SetBarrel, UTankTurret * Set
 
 }
 
+
+void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
+{
+	if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+	{
+		FiringState = EFiriningState::Reloading;
+	}
+	else if (IsBarrelMoving())
+	{
+		FiringState = EFiriningState::Aiming;
+	}
+	else
+	{
+		FiringState = EFiriningState::Locked;
+	}
+}
+
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure (Barrel)) { return false; }
+	auto BarrelForward = Barrel->GetForwardVector();
+	// Vectors are not equal so that means the tank barrel must be in motion
+	return !BarrelForward.Equals(AimDirection, 0.01); 
+}
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
 {
@@ -67,7 +82,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 			
 	if(bHaveAimSolution)
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
+		AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 	}
 
@@ -76,7 +91,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	if (!ensure (Barrel && Turret)) { return; }
+	if (!ensure (Barrel || !Turret)) { return; }
 
 	// Work out difference between current barrel rotation and aim direction
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
@@ -86,7 +101,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	Barrel->Elevate(DeltaRotator.Pitch);
 	Turret->Rotate(DeltaRotator.Yaw);
 }
-
 
 
 void UTankAimingComponent::Fire()
@@ -106,9 +120,11 @@ void UTankAimingComponent::Fire()
 				);
 
 		Projectile->LaunchProjectile(LaunchSpeed);
-
+		LastFireTime = FPlatformTime::Seconds();
 	}
 }
+
+
 
 
 
