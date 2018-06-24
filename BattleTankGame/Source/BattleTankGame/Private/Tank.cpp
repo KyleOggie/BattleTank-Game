@@ -3,7 +3,7 @@
 
 #include "Public/Tank.h"
 
-//UE_LOG(LogTemp, Warning, TEXT("PlayerController can't find aiming component at BeginPlay "));
+
 
 // Sets default values
 ATank::ATank()

@@ -39,9 +39,10 @@ public:
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Crosshair state")
-	EFiriningState FiringState = EFiriningState::Locked;
+	EFiriningState FiringState = EFiriningState::Reloading;
 
-		
+
+
 private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
@@ -61,5 +62,9 @@ private:
 	float ReloadTimeInSeconds = 3;
 
 	double LastFireTime = 0;
+
+	virtual void BeginPlay() override;
+	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction) override;
+	
 
 };
