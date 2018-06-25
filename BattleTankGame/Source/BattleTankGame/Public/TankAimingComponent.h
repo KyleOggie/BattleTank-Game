@@ -9,11 +9,12 @@
 
 // Enums for aiming states
 UENUM()
-enum class EFiriningState : uint8
+enum class EFiringState : uint8
 {
 	Reloading,
 	Aiming,
-	Locked
+	Locked,
+	OutOfAmmo
 };
 
 // Forward Declaration
@@ -36,12 +37,15 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "Firing")
 	void Fire();
+	
+	EFiringState GetFiringState() const;
 
-
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int GetRoundsLeft() const;
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Crosshair state")
-	EFiriningState FiringState = EFiriningState::Reloading;
+	EFiringState FiringState = EFiringState::Reloading;
 
 
 
@@ -69,6 +73,9 @@ private:
 
 	virtual void BeginPlay() override;
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction) override;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int RoundsLeft = 3;
 	
 
 };

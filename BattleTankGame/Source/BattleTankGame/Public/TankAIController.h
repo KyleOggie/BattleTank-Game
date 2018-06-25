@@ -19,11 +19,13 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// How close can the AI tank get to the player
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		float AcceptanceRadius = 8000;
 private:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// How close can the AI tank get to the player
-	float AcceptanceRadius = 3000;
+
 
 };
