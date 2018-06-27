@@ -2,6 +2,7 @@
 
 #include "TankAIController.h"
 #include "Public/TankAimingComponent.h"
+#include "Tank.h" // So we can implement on death
 
 // Depends on movement component via pathfinding system (move to actor)
 
@@ -29,7 +30,8 @@ void ATankAIController::SetPawn(APawn* InPawn)
 
 void ATankAIController::OnPossessedTankDeath()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Recieved!"));
+	if (!GetPawn()) { return; }
+	GetPawn()->DetachFromControllerPendingDestroy();
 }
 
 

@@ -27,6 +27,7 @@ void ATank::BeginPlay()
 {
 	Super::BeginPlay(); // Needed for Blueprint Beginplay to run!
 
+	CurrentHealth = StartingHealth;
 }
 
 

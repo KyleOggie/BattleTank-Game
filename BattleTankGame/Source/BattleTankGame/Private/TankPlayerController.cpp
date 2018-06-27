@@ -2,6 +2,7 @@
 
 #include "TankPlayerController.h"
 #include "Public/TankAimingComponent.h"
+#include "Public/Tank.h" // So we can implement on death
 
 
 
@@ -94,7 +95,7 @@ bool ATankPlayerController::GetLookVectorHitLocation(FVector LookDirection, FVec
 		HitResult,
 		StartLocation,
 		EndLocation,
-		ECollisionChannel::ECC_Visibility))
+		ECollisionChannel::ECC_Camera))
 	{
 		// Set hit location
 		OutHitLocation = HitResult.Location;
@@ -119,6 +120,7 @@ void ATankPlayerController::SetPawn(APawn* InPawn)
 
 void ATankPlayerController::OnPossessedTankDeath()
 {
+	StartSpectatingOnly();
 }
 
 

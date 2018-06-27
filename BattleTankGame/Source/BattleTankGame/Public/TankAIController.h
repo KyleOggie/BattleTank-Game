@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "Tank.h" // So we can implement on death
 #include "TankAIController.generated.h"
 
 

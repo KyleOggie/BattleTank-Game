@@ -4,7 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
-#include "Tank.h" // So we can implement on death
 #include "TankPlayerController.generated.h"
 
 // Forward Declarations
